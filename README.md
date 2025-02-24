@@ -21,7 +21,7 @@ These scripts will prompt for your sudo password where required.
 
 Report errors in this to me so everyone can benefit.
 
-Note: by default, this will build the SDL-Hercules "develop"
+Note: by default, this will build the Hercules-Aethra flavor, "develop"
 branch.  You may change this using the hercules-helper.conf
 config file.  Or use the --flavor= option.
 
@@ -53,29 +53,38 @@ Options:
   -h,  --help         print this help
   -t,  --trace        print every command (set -x)
   -v,  --verbose      print lots of messages
-  -p,  --prompts      print a prompt before each major step
+       --version      prints version info and exits
        --flavor=      specify major flavor: aethra, sdl-hyperion, etc.
+       --git-branch=  specify repo branch to checkout
+       --git-commit=  specify repo commit to checkout
+       --beeps        beep at each prompt
+  -p,  --prompts      print a prompt before each major step
        --config=FILE  specify config file containing options
-  -s,  --sudo         use \'sudo\' for installing
-  -a,  --auto         run everything, with --verbose and --prompts,
-                      and creating a full log file
+  -s,  --sudo         use 'sudo' for installing
+       --askpass      use 'sudo -A' askpass helper
+       --accept-root  accept running as root user
+  -a,  --auto         run everything, with --verbose (but not --prompts),
+                      and create a full log file (this is the default)
        --homebrew     assume Homebrew package manager on MacOS
        --macports     assume MacPorts package manager on MacOS
+       --force-pi     process for a Raspberry Pi (even if not auto-detected)
+       --prefix       installation dir prefix for configure
 
 Sub-functions (in order of operation):
        --detect-only  run detection only and exit
        --no-packages  skip installing required packages
-       --no-rexx      skip building Regina REXX
-       --no-gitclone  skip \'git clone\' steps
-       --no-bldlvlck  skip \'util/bldlvlck\' steps
+       --no-rexx      skip building Regina REXX, and no REXX support in Hercules
+       --no-gitclone  skip 'git clone' steps
+       --no-bldlvlck  skip 'util/bldlvlck' steps
        --no-extpkgs   skip building Hercules external packages
-       --no-autogen   skip running \'autogen\'
-       --no-configure skip running \'configure\'
-       --no-clean     skip running \'make clean\'
-       --no-make      skip running \'make\'
-       --no-tests     skip running \'make check\'
-       --no-install   skip \'make install\' after building
-       --no-setcap    skip running \'setcap\'
+       --autogen      run 'autoreconf' and 'autogen'
+       --no-autogen   skip running 'autogen'
+       --no-configure skip running 'configure'
+       --no-clean     skip running 'make clean'
+       --no-make      skip running 'make'
+       --no-tests     skip running 'make check'
+       --no-install   skip 'make install' after building
+       --no-setcap    skip running 'setcap'
        --no-envscript skip creating script to set environment variables
        --no-bashrc    skip modifying .bashrc to set environment variables
 
@@ -83,7 +92,10 @@ Email bug reports, questions, etc. to <bill@wrljet.com>
 ```
 
 To use, create a build directory and cd to it, then run this script.
-First timers, it is recommended to use the --auto option.
+First timers, it is recommended to use the `--auto` option.
+
+Note, while it works, it is not recommended to build directly into
+the directory you've cloned Hercules-Helper into.
 
 _In these examples below, it assumes you cloned the repo into your
 home directory, i.e. ~/hercules-helper.  And, that you are using
@@ -105,20 +117,42 @@ Or for your first run, for finer control:
 $ ~/hercules-helper/hercules-buildall.sh --verbose --prompts
 ```
 
-You may build Hercules from Jay Maynard's Aethra repo as well, adding:
+To control where Hercules is installed, use the `--prefix=` switch.
+Such as:
+```
+--prefix=/usr/local/hercules
+```
+
+You may build Hercules from either Fish's SDL-Hercules-390 or Jay Maynard's Aethra repo
+using the `--flavor=` switch.
 
 ```
 --flavor=aethra
 ```
+or
+```
+--flavor=sdl-hyperion
+```
 
-SDL-Hercules is still used by default if --flavor isn't specified.
---flavor will select from a canned config that is tailored to the Aethra repo.
+`--flavor` will select from a canned config for the repo selected.
 Some directory and filenames will be altered to "aethra" vs "hyperion"
 
-You can still use the --config= to point to a local config for fine tuning.
+For finer control of what gets built, you can use:
+
+```
+--git-branch=
+```
+and/or
+```
+--git-commit=
+```
+
+Such as `--git-branch=develop --git-commit=c84cda3`
+
+You can still use the `--config=` to point to a local config for fine tuning.
 
 On MacOS, either Homebrew or MacPorts may be used.
-Supply either the --homebrew or --macports option accordingly.
+Supply either the `--homebrew` or `--macports` option accordingly.
 
 For MacOS and Homebrew, be sure /opt/homebrew/bin appears at the front of your
 search PATH, so newer packages from Brew override older defaults from MacOS or
@@ -130,7 +164,7 @@ If packages need to be installed you may be asked to supply your sudo password.
 You will be prompted a number of times between the major steps, to give you a chance
 to see the results of the last step, and to clue you into what will be happening next.
 
-Hercules will be "installed" (unless you include the ---no-install option), defaulting
+Hercules will be "installed" (unless you include the --no-install option), defaulting
 into ~/herctest/herc4x
 
 To set the required environment variables after installation, a script will be added

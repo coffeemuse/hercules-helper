@@ -2,13 +2,13 @@
 
 # This file is part of the Hercules-Helper project.
 #
-# (C) Copyright William R. Lewis, 2020-2023
+# (C) Copyright William R. Lewis, 2020-2025
 #
 # This software is released under the terms of the MIT License.
 #
 # https://github.com/wrljet/hercules-helper/blob/master/LICENSE
 
-# Updated: 28 JUN 2023
+# Updated: 17 FEB 2025
 VERSION_STR=v0.9.14+
 #
 # The most recent version of this project can be obtained with:
@@ -57,621 +57,6 @@ VERSION_STR=v0.9.14+
 #
 #-----------------------------------------------------------------------------
 
-# Changelog:
-#
-# Updated: 08 JUL 2023
-# - add support for macOS 14 Sonoma
-#
-# Updated: 28 JUN 2023
-# - corrections to default config files
-#
-# Updated: 27 JUN 2023
-# - run 'sudo ldconfig' after installation, if --sudo is in effect
-#
-# Updated: 14 JUN 2023
-# - move search for existing binaries to helper-find-existing-binaries.sh
-#   for performance reasons. This can be extremely slow on some systems.
-# - loosen up the tests for existing env var scripts in the shell profile
-#
-# Updated: 12 JUN 2023
-# - correct typo in default config git branch
-#
-# Updated: 11 JUN 2023
-# - correct wording describing adding env vars to shell profile
-# - correct year in dates in recent ChangeLog entries
-# - add minor clarification to "Build tools versions:" message
-#
-# Updated: 10 JUN 2023
-# - fix typos in config files
-#
-# Updated: 09 JUN 2023
-# - add info about Zsh profile to the README
-#
-# Updated: 08 JUN 2023
-# - support adding to Zsh profile
-# - don't ask y/N for sudo if --sudo option is present
-#
-# Updated: 06 JUN 2023
-# - added/update copyright and license info
-# - make --auto the default
-# - improve handling of 'sudo' detection
-# - prompt to continue if 'sudo' will be required later
-# - rearrange some of the major steps to put 'sudo' warning sooner
-# - create 'extra-info...log' file to unclutter main output
-#
-# Updated: 31 MAY 2023
-# - rename main script to hercules-buildall.sh
-# - print deprecation msg from old hyperion-buildall.sh
-#
-# Updated: 30 MAY 2023
-# - accommodate building from non-Hyperion named repos
-# - add --flavor= switch, to select aethra.conf vs. sdl-hyperion.conf, etc.
-#
-# Updated: 11 MAY 2023
-# - improve warning messages when not adding profile commands
-#
-# Updated: 08 MAY 2023
-# - search for and list existing Hercules binaries
-#
-# Updated: 17 APR 2023
-# - add detection for aarch64 linuxkit
-# - add detection for Raspberry Pi 400 1.1 [c03131]
-#
-# Updated: 11 APR 2023
-# - improve unfinished support for OpenBSD (tested with 7.3)
-#   correct # of CPUs detection
-#   skip 'setcap'
-#   remove old output libs before building extpkgs
-# - hide error output from 'which'
-#
-# Updated: 29 MAR 2023
-# - detect aarch64 based rockchip64 / Linux g6sbc01
-#
-# Updated: 23 MAR 2023
-# - detect and warn if sudo is missing
-#
-# Updated: 02 MAR 2023
-# - add support for Chromebook (Penguin Debian Linux)
-# - detect and warn about a new installation not being added to bashrc
-#
-# Updated: 28 JAN 2023
-# - add --beeps option, to beep at each prompt
-#
-# Updated: 25 JAN 2023
-# - use 'gmake' instead of BSD 'make' on NetBSD
-#
-# Updated: 23 JAN 2023
-# - remove incorrectly escaped quotes from 'setcap' commands in build cmdfile
-#
-# Updated: 22 JAN 2023
-# - initial support for Peppermint Devuan
-#
-# Updated: 28 DEC 2022
-# - use sudo where requested to mkdir the installation directory
-# - correct bug introduced in variable renaming, affecting non-Hurd
-# - add support for 'opt_configure' config file option
-#
-# Updated: 27 DEC 2022
-# - add --version option
-# - rename various version related variables
-#
-# Updated: 26 DEC 2022
-# - add initial support for Debian GNU Hurd
-#
-# Updated: 06 DEC 2022
-# - add support for Gentoo (thanks to Gavin de la Rey)
-#
-# Updated: 01 DEC 2022
-# - correct bitness checks on NetBSD for sparc64
-#
-# Updated: 28 NOV 2022
-# - correct bitness checks on NetBSD for amd64
-# - add helper-build-regina-netbsd.sh
-#
-# Updated: 16 NOV 2022
-# - add support for RedHat RHEL 9
-#
-# Updated: 16 NOV 2022
-# - add support for CentOS 9 Stream, AlmaLinux 9, and Rocky Linux 9
-#   thanks to Matthew Wilson the fix, and Michael Richmond for finding it
-#
-# Updated: 27 SEP 2022
-# - add support for OpenBSD (tested with 7.1)
-#
-# Updated: 13 SEP 2022
-# - fix broken Debian 32-bit
-#
-# Updated: 09 SEP 2022
-# - add support for Rocky Linux
-#
-# Updated: 25 AUG 2022
-# - add support for Slackware
-#
-# Updated: 17 AUG 2022
-# - correct bitness detection for POWER8 and later ppc64le CPUs
-#   thanks Matthew for fixing this
-
-# Updated: 24 JUL 2022
-# - add support for macOS 13 Ventura
-#
-# Updated: 12 JUL 2022
-# - add config option to override CMake extpkgs optimization settings
-#
-# Updated: 05 JUL 2022
-# - add detection of new Raspberry Pi 4B rev 1.5 PCB
-#
-# Updated: 11 JUN 2022
-# - add support for RISC-V CPU
-#
-# Updated: 09 MAR 2022
-# - add support for macOS 10.12 Sierra
-#
-# Updated: 09 MAR 2022
-# - add SLES to openSUSE detection (got lost somewhere along the way)
-#
-# Updated: 07 MAR 2022
-# - bail out if CMake for extpkgs fails
-#
-# Updated: 16 FEB 2022
-# - fix incomplete --config= option
-#
-# Updated: 12 FEB 2022
-# - correct logic for Homebrew vs. MacPorts and x86 vs. M1
-#
-# Updated: 09 FEB 2022
-# - disallow running as the root user (this check got lost 7 JAN 2021)
-#
-# Updated: 30 JAN 2022
-# - rename macOS-prequisites.sh to prerequsites-macOS.sh
-#
-# Updated: 29 JAN 2022
-# - add 'bitness' detection for use when building the external packages
-# - replace Fish's 'extpkgs.sh' build scheme with direct use of cmake
-#   this is to avoid changing the extpkgs to add E2K CPU
-#
-# Updated: 26 JAN 2022
-# - beta support for Elbrus Linux, E2K CPU (also requires Hercules changes)
-# - detect if compiler recognizes '-frecord-gcc-switches' before using it
-# - limit 'make -j' to 4 maximum
-# - correct Regina/ooRexx options written to build log
-# - refer to 'ps' rather than '/bin/ps', as it's not there on some systems
-# - display LD_LIBRARY_PATH environment variable for debugging
-# - correct logic enabling/disabling Regina/ooRexx options for 'configure'
-# - correct Regina detection so it's not fooled by ooRexx earlier in the path
-#
-# Updated: 19 JAN 2022
-# - fix bug in display of SUDO_ASKPASS environment variable
-# - additional work to get NetBSD working fully
-#
-# Updated: 14 JAN 2022
-# - add new '--askpass' option to use a 'sudo -A' askpass helper
-# - display SUDO_ASKPASS environment variable
-# - add missing 'setcap' commands to the build log
-# - replace 'read -p' with something that works over KVM ssh
-#
-# Updated: 05 JAN 2022
-# - add package 'time' to Fedora.  Found missing using Vagrant.
-# - add package 'time' to Alma Linux.  Found missing using Vagrant.
-#
-# Updated: 03 JAN 2022
-# - fix bug related to '--no-rexx' erroring out on missing headers
-# - help FreeBSD find headers and libraries (for Vagrant)
-# - rearrange order of various infos displays
-# - display info about ability to create crash dumps on MacOS
-#
-# Updated: 31 DEC 2021
-# - not wanting REXX support in Hercules no longer means skipping 'make check'
-# - if '--no-rexx' option is used, don't mention building Regina REXX
-# - for MacOS, use 'sysctl hw.memsize' rather than 'hw.physmem' to get 64-bit value
-# - display $GCC environment variable if present
-#
-# Updated: 21 DEC 2021
-# - pretty up memory display presented before running 'make check'
-#
-# Updated: 20 DEC 2021
-# - add memory detction for MacOS
-#
-# Updated: 19 DEC 2021
-# - add support for Mageia v8
-#
-# Updated: 18 DEC 2021
-# - move various utility functions to helper-fns.sh
-# - change compiler optimization level to '-O3' by default
-#
-# Updated: 11 DEC 2021
-# - change 'cmake' from an openSUSE pattern, to a package
-# - correct detection of Raspberry Pi under openSUSE 42.2
-#
-# Updated: 06 DEC 2021
-# - test the C compiler to see if '-march=native' works before using it
-# - add '--force-pi' option, for Raspberry Pi OSes that hide the CPU ID
-# - add 'time' package to requirements for openSUSE
-# - add detection of Raspberry Pi with openSUSE 15
-# - skip 'mainsize' test on low memory openSUSE (Pi 3B)
-#
-# Updated: 26 NOV 2021
-# - add 'libbz2-devel' package for OpenSUSE
-#
-# Updated: 24 NOV 2021
-# - add TRACEability to rebuild script
-# - add detection for MacOS 12 Monterey
-# - allow for skipping 'autogen' on MacOS
-#
-# Updated: 20 NOV 2021
-# - correct 'configure' 'libdir' for Regina on RedHat/CentOS/etc
-#
-# Updated: 19 NOV 2021
-# - respect --no-rexx to mean don't build any version of Rexx
-#   and don't enable support in Hercules for any existing Rexx
-# - fix bug related to script path
-# - minor improvements to rebuild script generation
-#
-# Updated: 17 NOV 2021
-# - add 'devpkg-zlib' to required packages for Intel Clear Linux
-#
-# Updated: 16 NOV 2021
-# - add 'libtool' to required packages (Alma, Debian, Fedora, FreeBSD)
-#
-# Updated: 08 NOV 2021
-# - add support for Intel Clear Linux
-# - add '-g -g3 -ggdb3' compiler switches to core dumps contain symbolic info
-#
-# Updated: 06 NOV 2021
-# - add detection for a bunch of newer Raspberry Pi PCB revisions
-# - add support for new Raspberry Pi Zero 2 W
-#
-# Updated: 01 NOV 2021
-# - don't exit if grep returns unexpected failure when 'cc1' found
-# - use $CC instead of 'cc' when checking Clang for 'frecord_gcc_switches'
-#
-# Updated: 27 OCT 2021
-# - check for failure of Regina 'sudo make install' and exit
-# - fix bug allowing Raspberry Pi 3B+ FreeBSD to run 'mainsize' test
-#   introduced when I moved the build process out of the source dir
-#
-# Updated: 16 OCT 2021
-# - for Debian, replaced 'libtool' with 'libltdl-dev'
-#
-# Updated: 12 OCT 2021
-# - use 1.5 times as many processes as CPUs during build
-# - for FreeBSD 12.2, Clang doesn't seem to know about /usr/local
-# - for FreeBSD, add 'libltdl' package
-#
-# Updated: 30 SEP 2021
-# - corrections for 'realpath' which doesn't exist on MacOS or BSDs
-# - add environment variables to the rebuild log
-#
-# Updated: 19 SEP 2021
-# - add error detection to 'git clone' and 'git checkout' commands
-# - better detect and skip tests for Rexx installations missing dev files
-#
-# Updated: 12 SEP 2021
-# - fix bug writing config options to the build steps log
-# - fix bug so opt_no_envscript=true and opt_no_bashrc=true config file
-#   options work together correctly
-#
-# Updated: 01 SEP 2021
-# - attempted corrections to CentOS 7 cc1 and cc1plus detection
-# - fix bug preventing running from our own directory
-# - add support for 'opt_configure_optimization' config file option
-#
-# Updated: 28 AUG 2021
-# - try to detect a defective MacOS Xcode command line tools installation
-# - add System76 Pop!_OS as a Debian alternative (thanks to Jay Maynard!)
-# - when 'sudo' is needed for the install dir, use it for everything there
-#   (thanks to Jay Maynard!)
-#
-# Updated: 27 AUG 2021
-# - add required 'time' package for Manjaro
-# - fix bug created by recent Raspberry Pi detection fix
-#
-# Updated: 20 AUG 2021
-# - fix Raspberry Pi detection on non-rpios such as Ubuntu
-# - display search path with system info
-# - add 'libtool' to packages for MacOS
-#
-# Updated: 16 AUG 2021
-# - corrections to reusable build script (for MacPorts)
-#
-# Updated: 15 AUG 2021
-# - add Debian package installation to reusable build script
-# - warn when Debian apt gets an error for a missing CD-ROM
-#
-# Updated: 12 AUG 2021
-# - remove DEBUG mode when building extpkgs
-#
-# Updated: 11 AUG 2021
-# - create reusable script of commands to rebuild
-# - don't run util/bldlvlck on MacOS
-#
-# Updated: 10 AUG 2021
-# - support MacPorts package manager on MacOS
-# - use either '--homebrew' or '--macports' required to specify
-#
-# Updated: 03 AUG 2021
-# - fix bug causing --autogen option to not work
-#
-# Updated: 01 AUG 2021
-# - bug out earlier if the system is known to not be supported
-# - add support for Zorin Linux
-#
-# Updated: 29 JUL 2021
-# - corrections to Raspberry Pi detection
-# - don't display a bunch of errors if /etc/os-release is missing
-#
-# Updated: 16 JUL 2021
-# - add support for AlmaLinux 8.4
-# - skip setcap operations on Raspberry Pi with single CPU core
-#
-# Updated: 15 JUL 2021
-# - correct patch for Regina REXX 3.6 on Raspberry Pi 64-bit OS Beta
-#
-# Updated: 04 JUL 2021
-# - add 'libtool' to required packages for openSUSE
-# - skip setcap operations on Apple macOS
-# - add error handling to various steps
-#
-# Updated: 01 JUL 2021
-# - Fedora 34 support
-#
-# Updated: 23 JUN 2021
-# - fix error introduced in Regina build by Raspberry Pi detection
-# - install gsed on macOS
-#
-# Updated: 21 JUN 2021
-# - add '-Wno-error=implicit-function-declaration' to Regina REXX build for Clang
-#   rather than macOS Darwin
-#
-# Updated: 18 JUN 2021
-# - patch Regina-REXX 3.6 source for building on Raspberry Pi Ubuntu
-#
-# Updated: 17 JUN 2021
-# - remove sdl4x directory, as it is not necessary
-# - compile Hercules in a build subdirectory, rather than in-source
-#
-# Updated: 15 JUN 2021
-# - for Apple Mac M1:
-#   always run 'autogen.sh' but skip 'autoreconf'
-#   use '--without-included-ltdl' configure option
-#   find include files and librarys with 'brew --cellar libtool'
-#   skip 'setcap'
-#   (currently only works with apple-m1 branch of wrljet hyperion fork)
-# - don't run 'readelf' for Clang
-#
-# Updated: 14 JUN 2021
-# - some initial work for the Apple Mac M1 CPU, detection
-# - add '-Wno-error=implicit-function-declaration' to Regina REXX build for Clang
-#
-# Updated: 14 JUN 2021
-# - before telling the user how to source the script to set environment vars
-#   make sure we actually created it.
-# - add '--no-packages' command, and fix related bugs in command parsing
-#
-# Updated: 14 JUN 2021
-# - fix zypper install patterns vs. packages on openSUSE
-# - add 'sudo ldconfig' after building Regina on openSUSE
-#   (this might be required elsewhere as well)
-#
-# Updated: 12 JUN 2021
-# - install 'libcap-progs' on openSUSE to use set capabilities
-# - configure Regina with --libdir=/usr/lib on openSUSE
-#
-# Updated: 11 JUN 2021
-# - remove prompts from '--auto' mode
-# - add '--prompt' as a synonym for '--prompts' because it's an easy typo to make
-#
-# Updated: 10 JUN 2021
-# - add Hercules-Helper version (git commit ID) to the Hercules custom build string
-# - patch configure for Regina REXX 3.9.3 to add build support for 64-bit Pi
-#
-# Updated: 08 JUN 2021
-# - look for both 'arm64' and 'aarch64' in uname -m detection
-#
-# Updated: 07 JUN 2021
-# - install 'time' which is missing on some Debian based systems
-# - install 'ncat' because it's useful for submitting JCL to test Hercules
-#
-# Updated: 06 JUN 2021
-# - don't use gcc -O3
-#
-# Updated: 06 JUN 2021
-# - configure Regina with --libdir=/usr/lib
-#   (so far just on Debian derivatives)
-# - bug in Regina 3.7+ that affects MVS-SYSGEN found, and may be worked
-#   around with LINES(,'C')
-#
-# Updated: 04 JUN 2021
-# - build Regina using the default PREFIX
-# - don't bother adding our Regina to path, etc.  Use system defaults
-#
-# Updated: 04 JUN 2021
-# - make Regina download configurable
-# - switch default Regina from 3.9.3 to 3.6 due to bug affecting MVS-SYSGEN
-#
-# Updated: 28 MAY 2021
-# - default to skipping autoreconf/autogen
-# - add --autogen switch
-#
-# Updated: 27 MAY 2021
-# - CFLAGS=-frecord-gcc-switches broke macOS
-#
-# Updated: 26 MAY 2021
-# - add configure option: CFLAGS=-frecord-gcc-switches
-#   for: 'readelf -p .GCC.command.line herc4x/bin/hercules'
-#
-# Updated: 26 MAY 2021
-# - clean up display around 'autoreconf'
-#
-# Updated: 26 MAY 2021
-# - add feature to 'git checkout' a specific revision
-#
-# Updated: 15 MAY 2021
-# - corrected macOS version detection to now recognize 10.15 (Catalina)
-#
-# Updated: 12 MAY 2021
-# - call 'autoreconf --force --install' to get latest libtool, etc.
-#
-# Updated: 11 MAY 2021
-# - add package libtool-ltdl-devel for CentOS and newer autoconf/libtool
-#
-# Updated: 09 MAY 2021
-# - corrected comment-only if/else clause
-#
-# Updated: 06 MAY 2021
-# - corrected macOS version detection to now recognize 10.13 (High Sierra),
-#   10.14 (Mojave), and 11 (Big Sur)
-#
-# Updated: 02 MAY 2021
-# - add initial support for macOS Mojave 10.14 (Darwin)
-# - various changes to work with Bash 3.2
-# - replace 'printf %()T' with 'date +%s'
-# - remove /etc/profile.d/hyperion.sh stuff entirely
-# - requires 'libtool' package until updates have been applied to Hyperion
-#
-# Updated: 12 APR 2021
-# - add --detect-only option
-#
-# Updated: 08 APR 2021
-# - a few corrections related to 'set -u'
-# - correct memory size check for FreeBSD 'mainsize' from MB to KB
-# - now also works on FreeBSD 12.2 on x86-64
-# - fix bug in --sudo option
-# - additional system info display
-#
-# Updated: 07 APR 2021
-# - FreeBSD 12 on Raspberry Pi 3B improvements
-# - skip 'mainsize' test on low memory FreeBSD
-#
-# Updated: 06 APR 2021
-# - major changes to the options.  Be sure to check --help
-# - most of the sub steps can now be individually skipped
-# - lowercase all internal variable names
-# - added FreeBSD 12 on Raspberry Pi 3B support (incomplete)
-#
-# Updated: 18 FEB 2021
-# - correct WSL1 detection so it doesn't show both WSL1 and WSL2 together
-# - capture Debian dpkg stderr output so it doesn't show up to the user
-#
-# Updated: 31 JAN 2021
-# - add --noclone option to use existing source directories
-# - add detection and support for Alpine Linux (under construction)
-#
-# Updated: 25 JAN 2021
-# - for Manjaro: add "--needed" option to pacman command
-#
-# Updated: 24 JAN 2021
-# - add wget as a required package for Debian and Manjaro
-# - add instructions to make the new build immediately available
-#
-# Updated: 19 JAN 2021
-# - add detection and support for Manjaro Linux
-#
-# Updated: 14 JAN 2021
-# - correct CentOS detection to take CentOS Stream into account
-#
-# Updated: 10 JAN 2021
-# - merge utilfns.sh into main script
-# - add --auto option to just do it all, with full logging
-# - remove separate logs for sub-steps
-#
-# Updated: 09 JAN 2021
-# - do all git clones in one place
-# - fix bug when creating /etc/profile.d/hyperion.sh
-# - in ~/.bashrc, test for /etc/profile.d/hyperion.sh before calling it
-#
-# Updated: 07 JAN 2021
-# - merge package preparation functionality into hyperion-buildall.sh
-# - add --no-packages option
-# - default to always install, and reverse sense of option to --no-install
-# - fix package detection for CMAKE on CentOS 7.8
-# - added openSUSE package support
-#
-# Updated: 05 JAN 2021
-# - initial support for NetBSD
-# - correct 'make -j' argument and CPU count for NetBSD
-# - show an error for unknown command line options
-# - display a version number for this script
-#
-# Updated: 04 JAN 2021
-# - create feature of external .conf file (not yet advertised)
-# - configurable URLs to GitHub for cloning repos *and* branch checkout
-# - don't use 'find -mount' on NetBSD
-# - when modifying extpkgs.sh.ini, don't override x86 with amd64 (NetBSD)
-# - when modifying extpkgs.sh.ini, don't use sed/g
-# - change a bunch of 'echo' to 'verbose_msg' calls
-#
-# Updated: 29 DEC 2020
-# - create shell profile.d script to set PATH, etc. (currently for Bash only)
-# - fix bug skipping autogen if not displaying prompts
-# - add custom title to ./configure
-# - correct non-functional typo in ./configure options
-# - use new status_prompter() function
-#
-# Updated: 28 DEC 2020
-# - detect and disallow running on Apple Darwin OS
-#
-# Updated: 25 DEC 2020
-# - check for armv6l CPU on Raspberry Pi Zero
-#
-# Updated: 24 DEC 2020
-# - use existing installed REXX for configure and 'make check'
-# - print the configure before running it
-# - correct environment varibles for REXX
-# - add colored error messages
-#
-# Updated: 22 DEC 2020
-# - detect existing ooRexx installation
-#
-# Updated: 21 DEC 2020
-# - detect existing Regina REXX installation and skip building (Debian only)
-# - auto install libregina3-dev (on Debian)
-#
-# Updated: 20 DEC 2020
-# - changes to detect and disallow gcc < 6.3.0 on i686
-# - don't follow mount points while searching for files
-# - comment known issue looking for installed state on Ubuntu 12.04
-#
-# Updated: 15 DEC 2020
-# - changes to detect and disallow Raspberry Pi Desktop for PC
-#
-# Updated: 13 DEC 2020
-# - changes to accomodate Mint (in-progress)
-# - changes to accomodate Windows WSL2
-# - changes to accomodate Raspberry Pi 32-bit Raspbian
-# - break out common functions to utilfns.sh include file
-#
-# Updated: 12 DEC 2020
-# - changes to accomodate KDE Neon (in-progress)
-#
-# Updated: 11 DEC 2020
-# - changes to accomodate NetBSD (in-progress)
-#
-# Updated:  9 DEC 2020
-# - wrljet build-mods-i686 branch is merged to SDL-Hercules-390, 
-#   so we git clone from that directly
-#
-# Updated:  6 DEC 2020
-# - another fix for CentOS 7.x detection
-# - improve system status info for debugging
-# - fix configure C pre-processor detection on CentOS
-#
-# Updated:  5 DEC 2020
-# - issue 'setcap' commands so hercules will run without root permissions
-# - write out hercules-setvars.sh to create required environment variables
-# - added m4 as a required package for Debian
-# - show the system language
-# - display improvements
-#
-# Updated:  4 DEC 2020
-# - disallow running as the root user
-# - corrected parsing for differing CentOS 7.8 ansd 8.2 version strings
-# - update package list for CentOS
-# - on CentOS 7, CMAKE 3.x is built from source
-# - added wget as a required package for CentOS
-#
-# Updated: 30 NOV 2020
-# - initial commit to GitHub
-
 if test "$BASH" == "" || "$BASH" -uc "a=();true \"${a[@]}\"" 2>/dev/null; then
     # Bash 4.4+, Zsh
     # Treat unset variables as an error when substituting
@@ -687,10 +72,8 @@ fi
 # Instructions on updating Bash on macOS Mojave 10.14
 # https://itnext.io/upgrading-bash-on-macos-7138bd1066ba
 
-if ((BASH_VERSINFO[0] < 4))
+if ((BASH_VERSINFO[0] >= 4))
 then
-    echo "Bash version < v4"
-else
     shopt -s globstar
 fi
 
@@ -724,6 +107,10 @@ TRACE=${TRACE:-false}  # If TRACE variable not set or null, default to FALSE
 # Overall working build diretory is the current directory
 opt_build_dir=${opt_build_dir:-$(pwd)}
 
+# Custom build message
+# n.b. the version number will be tacked on the end
+opt_custom_build_msg=${opt_custom_buid_msg:-"Built for you with Hercules-Helper"}
+
 # Prefix (target) directory
 opt_install_dir=${opt_install_dir:-$(pwd)/herc4x}
 
@@ -750,7 +137,10 @@ git_branch_extpkgs=${git_extpkgs_extpkgs:-""}
 # Regina download
 opt_regina_dir=${opt_regina_dir:-"Regina-REXX-3.6"}
 opt_regina_tarfile=${opt_regina_tarfile:-"Regina-REXX-3.6.tar.gz"}
-opt_regina_url=${opt_regina_url:-"http://www.wrljet.com/ibm360/Regina-REXX-3.6.tar.gz"}
+opt_regina_url=${opt_regina_url:-"https://gist.github.com/wrljet/053c3bab74910d42f8775841fcc6fd3f/raw/fe7d723509356ebb77d1eb4593f15dda941949da/Regina-REXX-3.6.tar.gz"}
+# opt_regina_dir="Regina-REXX-3.9.3"
+# opt_regina_tarfile="Regina-REXX-3.9.3.tar.gz"
+# opt_regina_url="https://gist.github.com/wrljet/dd19076064da7c3dea1aa9614fc37511/raw/e842479d63fae7af79d4aec467b8fdb148ca196a/Regina-REXX-3.9.3.tar.gz"
 
 opt_configure=${opt_configure:-""}
 opt_configure_optimization=${opt_configure_optimization:-""}
@@ -773,6 +163,9 @@ opt_usesudo=${opt_usesudo:-false}
 
 # Use 'sudo -A' askpass helper
 opt_askpass=${opt_askpass:-false}
+
+# Accept root user 
+opt_accept_root=${opt_accept_root:-false}
 
 # Sub-functions, in order of operation
 #
@@ -868,7 +261,15 @@ LDFLAGS=${LDFLAGS:-""}
 
 #-----------------------------------------------------------------------------
 
-if [ "$EUID" -eq 0 ]; then
+if [[ "$*" == *"--accept-root"* ]]
+then
+    opt_accept_root=true
+else
+    opt_accept_root=false
+fi
+
+if [[ $opt_accept_root == false ]] ; then
+  if [[ "$EUID" -eq 0 ]]; then
     echo    # print a new line
     echo "Running this as root is dangerous and can cause misconfiguration issues"
     echo "or damage to your system.  Run as a normal user, and the parts that need"
@@ -882,6 +283,7 @@ if [ "$EUID" -eq 0 ]; then
     read -p "Hit return to exit" -n 1 -r
     echo    # print a new line
     exit 1
+  fi
 fi
 
 #-----------------------------------------------------------------------------
@@ -979,31 +381,34 @@ Options:
        --beeps        beep at each prompt
        --flavor=      specify major flavor: aethra, sdl-hyperion, etc.
        --config=FILE  specify config file containing options
-  -s,  --sudo         use \'sudo\' for installing
-       --askpass      use \'sudo -A\' askpass helper
+  -s,  --sudo         use 'sudo' for installing
+       --askpass      use 'sudo -A' askpass helper
+       --accept-root  accept running as root user
   -a,  --auto         run everything, with --verbose (but not --prompts),
                       and create a full log file (this is the default)
        --homebrew     assume Homebrew package manager on MacOS
        --macports     assume MacPorts package manager on MacOS
        --force-pi     process for a Raspberry Pi
+       --prefix       installation dir prefix for configure
 
 Sub-functions (in order of operation):
        --detect-only  run detection only and exit
        --no-packages  skip installing required packages
        --no-rexx      skip building Regina REXX, no REXX support in Hercules
-       --no-gitclone  skip \'git clone\' steps
-       --no-bldlvlck  skip \'util/bldlvlck\' steps
+       --no-gitclone  skip 'git clone' steps
+       --no-bldlvlck  skip 'util/bldlvlck' steps
        --no-extpkgs   skip building Hercules external packages
-       --autogen      run \'autoreconf\' and \'autogen\'
-       --no-autogen   skip running \'autogen\'
-       --no-configure skip running \'configure\'
-       --no-clean     skip running \'make clean\'
-       --no-make      skip running \'make\'
-       --no-tests     skip running \'make check\'
-       --no-install   skip \'make install\' after building
-       --no-setcap    skip running \'setcap\'
+       --autogen      run 'autoreconf' and 'autogen'
+       --no-autogen   skip running 'autogen'
+       --no-configure skip running 'configure'
+       --no-clean     skip running 'make clean'
+       --no-make      skip running 'make'
+       --no-tests     skip running 'make check'
+       --no-install   skip 'make install' after building
+       --no-setcap    skip running 'setcap'
        --no-envscript skip creating script to set environment variables
-       --no-bashrc    skip modifying .bashrc to set environment variables
+       --no-bashrc    skip modifying .bashrc/.zshrc to set environment variables
+       --no-zshrc     skip modifying .bashrc/.zshrc to set environment variables
 
 Please email bug reports, questions, etc. to: <bill@wrljet.com>
 "
@@ -1120,6 +525,10 @@ function check_pi_version()
     [b03140]="CM4       1.0     2GB     Sony UK"
     [c03140]="CM4       1.0     4GB     Sony UK"
     [d03140]="CM4       1.0     8GB     Sony UK"
+    [c04170]="5B        1.0     4GB            "
+    [d04170]="5B        1.0     8GB            "
+    [e04171]="5B        1.1    16GB            "
+    [c04180]="CM5       1.0     4GB            "
   )
 
     verbose_msg "Raspberry Pi     : ${RPI_REVISIONS[$RPI_REVCODE]} ($RPI_REVCODE)"
@@ -1176,6 +585,10 @@ detect_darwin()
 #------------------------------------------------------------------------------
 detect_system()
 {
+
+# 27 JUL 2021
+# Android 11 LineageOS 18.1 on Raspberry Pi 4B
+# Linux localhost 5.4.132-v7l-gfc76364e6fe8 #1 SMP PREEMPT Tue Jul 20 15:55:44 EEST 2021 armv7l Android
 
 # 31 JAN 2021
 #
@@ -1242,6 +655,18 @@ detect_system()
 # PLATFORM_ID="platform:el9"
 # PRETTY_NAME="Red Hat Enterprise Linux 9.1 (Plow)"
 
+# /etc/os-release
+#
+# NAME="Oracle Linux Server"
+# VERSION="8.8"
+# ID="ol"
+# ID_LIKE="fedora"
+# VARIANT="Server"
+# VARIANT_ID="server"
+# VERSION_ID="8.8"
+# PLATFORM_ID="platform:el8"
+# PRETTY_NAME="Oracle Linux Server 8.8"
+
     verbose_msg "System detection:"
 
     RPI_MODEL=""
@@ -1259,6 +684,25 @@ detect_system()
         os_version_pretty_name="??? unknown ???"
         os_version_str="??? unknown ???"
 
+        # First, we look for Android!
+        #
+        # LineageOS 18.1 Android 11 on Raspberry Pi 4B
+        # Linux localhost 5.4.132-v7l-gfc76364e6fe8 #1 SMP PREEMPT Tue Jul 20 15:55:44 EEST 2021 armv7l Android
+        #
+        # Moshix, Samsung phone
+        # Linux localhost 4.14.113-21644994 #1 SMP PREEMPT Fri Jun 18 16:26:54 KST 2021 aarch64 Android
+
+        # verbose_msg "  uname -a        : $(uname -a)"
+        version_uname="$(uname -a)"
+        if [[ "$version_uname" =~ Android ]]; then
+            version_id="android"
+            version_id_like="android"
+            version_pretty_name="Android"
+            version_str="??? unknown ???"
+
+            os_is_supported=true
+        fi
+        
         if [ -f /etc/os-release ]; then
             # awk -F= '$1=="ID" { gsub(/"/, "", $2); print $2 ;}' /etc/os-release
             os_version_id=$(awk -F= '$1=="ID" { gsub(/"/, "", $2); print $2 ;}' /etc/os-release)
@@ -1322,13 +766,34 @@ detect_system()
             verbose_msg "OS               : $version_distro variant"
             verbose_msg "OS Version       : $version_major"
 
-            os_is_supported=false
-            error_msg "Alpine Linux is not yet supported!"
+            os_is_supported=true
+        fi
+
+        # Look for Orange OS
+
+# Linux opizero2w 6.1.31-1 #1 SMP Thu Sep  7 18:21:15 CST 2023 aarch64 GNU/Linux
+# VERSION_ID       : archarm
+# VERSION_ID_LIKE  : arch
+# VERSION_PRETTY   : Orange OS
+# VERSION_STR      :
+# /etc/orangepi-os-version
+# opizero2w - xfce - 23.09-linux6.1.31
+
+        if [[ $os_is_supported != true && $os_version_id == arch* && $os_version_pretty_name == Orange* ]];
+        then
+            version_distro="arch"
+            os_version_str=$(awk -F= '$1=="DISTRIB_RELEASE" { gsub(/"/, "", $2); print $2 ;}' /etc/orangepi-os-version)
+            version_major=$(echo $os_version_str | cut -f1 -d.)
+            version_minor=$(echo $os_version_str | cut -f2 -d.)
+
+            verbose_msg "OS               : $version_distro variant"
+            verbose_msg "OS Version       : $version_major"
+            os_is_supported=true
         fi
 
         # Look for Manjaro
 
-        if [[ $os_version_id == arch* || $os_version_id == manjaro* ]];
+        if [[ $os_is_supported != true && ($os_version_id == arch* || $os_version_id == manjaro*) ]];
         then
             version_distro="arch"
             os_version_str=$(awk -F= '$1=="DISTRIB_RELEASE" { gsub(/"/, "", $2); print $2 ;}' /etc/lsb-release)
@@ -1343,9 +808,11 @@ detect_system()
         # Look for Debian/Ubuntu/Mint
 
         if [[ $os_version_id == debian*    || $os_version_id == ubuntu*     || \
+              $os_version_id == devuan*    ||                                  \
               $os_version_id == linuxmint* || $os_version_id == peppermint* || \
               $os_version_id == raspbian*  || $os_version_id == neon*       || \
-              $os_version_id == pop*       || $os_version_id == zorin* ]];
+              $os_version_id == pop*       || $os_version_id == zorin*      || \
+              $os_version_id == sparky*    ]];
         then
             version_distro="debian"
             version_major=$(echo $os_version_str | cut -f1 -d.)
@@ -1511,6 +978,61 @@ detect_system()
               os_is_supported=true
             fi
         fi
+
+        # Look for Oracle
+# NAME="Oracle Linux Server"
+# VERSION="8.8"
+# ID="ol"
+# ID_LIKE="fedora"
+# VARIANT="Server"
+# VARIANT_ID="server"
+# VERSION_ID="8.8"
+# PLATFORM_ID="platform:el8"
+# PRETTY_NAME="Oracle Linux Server 8.8"
+
+# cat /etc/redhat-release
+# Red Hat Enterprise Linux release 8.8 (Ootpa)
+
+        if [[ $os_version_id_like == fedora* && $os_version_pretty_name == Oracle* ]]; then
+            verbose_msg "We have an Oracle Linux system"
+
+            os_version_id="oracle"
+            version_distro="redhat"
+            version_major=$(echo $os_version_str | cut -f1 -d'.')
+            verbose_msg "VERSION_MAJOR    : $version_major"
+
+            if [[ $version_major -ge 8 ]]; then
+              os_is_supported=true
+            fi
+        fi
+
+#######################################################
+# Look for Amazon
+# NAME="Amazon Linux"
+#OS Type          : Linux
+#VERSION_ID       : amzn
+#VERSION_ID_LIKE  : fedora
+#VERSION_PRETTY   : Amazon Linux 2023.4.20240429
+#VERSION_STR      : 2023
+
+
+       if [[ $os_version_id == amzn* ]]; then
+           verbose_msg "We have an Amazon Linux System"
+
+           amzn_vers=$(cat /etc/amazon-linux-release) || true
+
+           amzn_vers="${amzn_vers#*release }"
+           amzn_vers="${amzn_vers/-/.}"
+
+           version_distro="redhat"
+           version_major=$(echo $amzn_vers | cut -f1 -d'.')
+           verbose_msg "VERSION_MAJOR    : $version_major"
+
+           if [[ $version_major -ge 2023 ]]; then
+             os_is_supported=true
+           fi
+       fi
+
 #######################################################
 
         # Look for Intel Clear Linux
@@ -1747,6 +1269,7 @@ detect_system()
 # CPU:  0.2% user,  0.0% nice,  0.2% system,  0.2% interrupt, 99.4% idle
 # Mem: 14M Active, 1636K Inact, 78M Wired, 47M Buf, 813M Free
 
+        os_version_pretty_name="FreeBSD"
         version_distro="freebsd"
         os_version_id="freebsd"
 
@@ -1831,18 +1354,23 @@ detect_system()
 
         if [[ $version_major -eq 10 && $version_minor -eq 12 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Sierra"
             echo "Apple macOS version $os_version_str (Sierra) found"
         elif [[ $version_major -eq 10 && $version_minor -eq 13 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS High Sierra"
             echo "Apple macOS version $os_version_str (High Sierra) found"
         elif [[ $version_major -eq 10 && $version_minor -eq 14 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Mojave"
             echo "Apple macOS version $os_version_str (Mojave) found"
         elif [[ $version_major -eq 10 && $version_minor -eq 15 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Catalina"
             echo "Apple macOS version $os_version_str (Catalina) found"
         elif [[ $version_major -eq 11 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Big Sur"
 
             if [[ "$(uname -m)" =~ ^arm64 ]]; then
                 echo "Apple macOS version $os_version_str (Big Sur) on ARM CPU found"
@@ -1851,6 +1379,7 @@ detect_system()
             fi
         elif [[ $version_major -eq 12 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Monterey"
 
             if [[ "$(uname -m)" =~ ^arm64 ]]; then
                 echo "Apple macOS version $os_version_str (Monterey) on ARM CPU found"
@@ -1859,6 +1388,7 @@ detect_system()
             fi
         elif [[ $version_major -eq 13 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Ventura"
 
             if [[ "$(uname -m)" =~ ^arm64 ]]; then
                 echo "Apple macOS version $os_version_str (Ventura) on ARM CPU found"
@@ -1867,11 +1397,21 @@ detect_system()
             fi
         elif [[ $version_major -eq 14 ]]; then
             os_is_supported=true
+            os_version_pretty_name="macOS Sonoma"
 
             if [[ "$(uname -m)" =~ ^arm64 ]]; then
                 echo "Apple macOS version $os_version_str (Sonoma) on ARM CPU found"
             else
                 echo "Apple macOS version $os_version_str (Sonoma) found"
+            fi
+        elif [[ $version_major -eq 15 ]]; then
+            os_is_supported=true
+            os_version_pretty_name="macOS Sequoia"
+
+            if [[ "$(uname -m)" =~ ^arm64 ]]; then
+                echo "Apple macOS version $os_version_str (Sequoia) on ARM CPU found"
+            else
+                echo "Apple macOS version $os_version_str (Sequoia) found"
             fi
         else
             os_is_supported=false
@@ -1970,7 +1510,7 @@ detect_bitness()
           ;;
        FreeBSD|OpenBSD|NetBSD)
           mach="`uname -m`"
-          if test "$mach" = "amd64" -o "$mach" = "sparc64" ; then
+          if test "$mach" = "amd64" -o "$mach" = "arm64" -o "$mach" = "sparc64" ; then
              os_bitflag="64"
              os_osis64bit=yes
           fi
@@ -1993,6 +1533,7 @@ detect_bitness()
 
 detect_regina()
 {
+    echo    # print a newline
     verbose_msg -n "Checking for Regina-REXX... " # no newline!
 
     version_regina=0
@@ -2000,7 +1541,9 @@ detect_regina()
     which_regina=$(which regina) || true
     which_status=$?
 
+    # echo
     # echo "(which rexx) status: $which_status"
+    # echo "(which rexx)       : $which_regina"
 
     if [ -z $which_regina ]; then
         verbose_msg "nope"
@@ -2009,7 +1552,11 @@ detect_regina()
         # regina -v
         # REXX-Regina_3.6 5.00 31 Dec 2011
         # regina: REXX-Regina_3.9.3 5.00 5 Oct 2019 (32 bit)
+        # regina: REXX-Regina_3.9.5(MT) 5.00 25 Jun 2022 (64 bit)
 
+        # echo $(regina -v 2>&1)
+        # echo $(regina -v 2>&1 | grep "Regina")
+        # echo $(regina -v 2>&1 | grep "Regina" | sed "s#^regina: ##")
         regina_v=$(regina -v 2>&1 | grep "Regina" | sed "s#^regina: ##")
         if [ -z "$regina_v" ]; then
             verbose_msg "nope"
@@ -2042,6 +1589,7 @@ detect_regina()
 
 detect_oorexx()
 {
+    echo    # print a newline
     verbose_msg -n "Checking for ooRexx... " # no newline!
 
     version_oorexx=0
@@ -2093,7 +1641,7 @@ detect_rexx()
     which_rexx=$(which rexx) || true
     which_status=$?
 
-    verbose_msg "REXX presence    : $which_rexx"
+    verbose_msg "REXX via (\$PATH):  $which_rexx"
     # echo "(which rexx) status: $which_status"
 
     detect_regina
@@ -2114,12 +1662,12 @@ detect_rexx()
 
         cc_find_h=$(echo "#include \"rexxsaa.h\"" | $CC $CPPFLAGS $CFLAGS -dI -E -x c - 2>&1 | grep "rexxsaa.h" )
         if [[ $cc_status -eq 0 ]]; then
-            verbose_msg "cc_status = $cc_status"
+            verbose_msg "compiler exit status = $cc_status"
             verbose_msg "rexxsaa.h is found in $CC search path"
             log_extra_info "$cc_find_h"
             rexxsaa_h_present=true
         else
-            verbose_msg "cc_status = $cc_status"
+            verbose_msg "compiler exit status = $cc_status"
             error_msg "rexxsaa.h is not found in $CC search path"
             log_extra_info "$cc_find_h"
             rexxsaa_h_present=false
@@ -2145,11 +1693,11 @@ detect_rexx()
         cc_find_h=$(echo "#include \"rexx.h\"" | cc $CPPFLAGS $CFLAGS -dI -E -x c - 2>&1 | grep "rexx.h" )
 
         if [[ $cc_status -eq 0 ]]; then
-            verbose_msg "cc_status = $cc_status"
+            verbose_msg "compiler exit status = $cc_status"
             verbose_msg "rexx.h is found in $CC search path"
             log_extra_info "$cc_find_h"
         else
-            verbose_msg "cc_status = $cc_status"
+            verbose_msg "compiler exit status = $cc_status"
             error_msg "rexx.h is not found in $CC search path"
             log_extra_info "$cc_find_h"
         fi
@@ -2177,6 +1725,7 @@ opt_override_prompts=false
 opt_override_beeps=false
 opt_override_usesudo=false
 opt_override_askpass=false
+opt_override_accept_root=false
 opt_override_auto=true
 
 opt_override_detect_only=false    # Run detection only and exit
@@ -2210,6 +1759,16 @@ case $key in
   --flavor=*)
     opt_flavor="${1#*--flavor=}"
     shift # past --flavor=xxx option
+    ;;
+
+  --git-branch=*)
+    opt_branch="${1#*--git-branch=}"
+    shift # past --git-branch=xxx option
+    ;;
+
+  --git-commit=*)
+    opt_commit="${1#*--git-commit=}"
+    shift # past --git-commit=xxx option
     ;;
 
   --config=*)
@@ -2263,6 +1822,11 @@ case $key in
 
   --askpass)
     opt_override_askpass=true
+    shift # past argument
+    ;;
+
+  --accept-root)
+    opt_override_accept_root=true
     shift # past argument
     ;;
 
@@ -2346,7 +1910,7 @@ case $key in
     shift # past argument
     ;;
 
-  --no-bashrc) # skip modifying .bashrc to set environment variables
+  --no-bashrc|--no-zshrc) # skip modifying .bashrc to set environment variables
     opt_override_no_bashrc=true
     shift # past argument
     ;;
@@ -2364,6 +1928,11 @@ case $key in
   --force-pi)
     opt_force_pi=true
     shift # past argument
+    ;;
+
+  --prefix=*)
+    opt_install_dir="${1#*--prefix=}"
+    shift # past --prexix=xxx option
     ;;
 
   -*|--*)  # unknown option
@@ -2438,23 +2007,27 @@ pushd "$(dirname "$0")" >/dev/null;
     which_git=$(which git 2>/dev/null) || true
     which_status=$?
 
+    # Add hercules-helper version to the build description, etc.
     if [ -z $which_git ]; then
         echo "git is not installed"
-        hercules_helper_version="unknown"
+        hercules_helper_version="-unknown-"
     else
-        add_build_entry "# Created by Hercules-Helper version: "
-        add_build_entry "# $SCRIPT_DIR/$(basename $0): $(git describe --long --tags --dirty --always 2>/dev/null)"
-        echo "Script version: $SCRIPT_DIR/$(basename $0): $(git describe --long --tags --dirty --always 2>/dev/null)"
-
-        # add hercules-helper version to the build description
         hercules_helper_version="$(git describe --long --tags --dirty --always 2>/dev/null)"
+
+        if [ $? -ne 0 ]; then
+            hercules_helper_version="-unknown-"
+        fi
+
+        add_build_entry "# Created by Hercules-Helper: "
+        add_build_entry "# $SCRIPT_DIR/$(basename $0): $hercules_helper_version)"
+        echo "Script version: $SCRIPT_DIR/$(basename $0): $hercules_helper_version"
     fi
 popd > /dev/null;
 echo    # print a newline
 
 # Process --flavor
 
-#if (! $opt_detect_only); then
+if (! $opt_override_detect_only); then
     opt_flavor=${opt_flavor:-}
 
     # Using 'tr' here so this works on Bash 3.2
@@ -2464,10 +2037,14 @@ echo    # print a newline
 
     # Check for a valid "flavor"
     if [ -z "$opt_flavor" ]; then
-        verbose_msg "--flavor= is not specified.  Assuming build style: SDL-Hyperion"
-        opt_flavor="sdl-hyperion"
+        error_msg "--flavor= is not specified.  You must specify either:"
+        error_msg "--flavor=aethra or --flavor=sdl-hyperion"
+        exit 1
     elif [ "$opt_flavor" == "sdl-hyperion" ]; then
         verbose_msg "--flavor=sdl-hyperion specified.  Build style: SDL-Hyperion"
+    elif [ "$opt_flavor" == "sdl-hercules" ]; then
+        verbose_msg "--flavor=sdl-hercules specified.  Build style: SDL-Hyperion"
+        opt_flavor="sdl-hyperion"
     elif [ "$opt_flavor" == "aethra" ]; then
         verbose_msg "--flavor=aethra specified.  Build style: Hercules Aethra"
     else
@@ -2483,7 +2060,7 @@ echo    # print a newline
         CONFIG_FILE="$config_dir/$opt_flavor.conf"
     fi
     verbose_msg    # print a newline
-# fi
+fi
 
 # Find and read in the configuration
 
@@ -2514,6 +2091,7 @@ if [ $opt_override_prompts     == true ]; then opt_prompts=true; fi
 if [ $opt_override_beeps       == true ]; then opt_beeps=true; fi
 if [ $opt_override_usesudo     == true ]; then opt_usesudo=true; fi
 if [ $opt_override_askpass     == true ]; then opt_askpass=true; fi
+if [ $opt_override_accept_root == true ]; then opt_accept_root=true; fi
 if [ $opt_override_auto        == true ]; then opt_auto=true; fi
 
 if [ $opt_override_detect_only == true ]; then opt_detect_only=true; fi
@@ -2566,6 +2144,7 @@ add_build_entry "# LDFLAGS=\"$LDFLAGS\""
 add_build_entry "# LD_LIBRARY_PATH=\"${LD_LIBRARY_PATH:-""}\""
 
 add_build_entry # newline
+add_build_entry "opt_custom_build_msg=\"$opt_custom_build_msg\""
 add_build_entry "opt_build_dir=\"$opt_build_dir/hyperion\""
 add_build_entry "opt_install_dir=\"$opt_install_dir\""
 add_build_entry "opt_regina_dir=\"$opt_regina_dir\""
@@ -2590,14 +2169,14 @@ prepare_packages()
   if [ "$version_distro" == "debian"  ]; then
       if [ "$os_name" = "GNU" ]; then
           declare -a debian_packages=( \
-            "git" "wget" "time" "ncat" \
+            "git" "wget" "curl" "time" "ncat" \
             "build-essential" "cmake" \
             "autoconf" "automake" "flex" "gawk" "m4" "libltdl-dev" "libtool-bin" \
             "libbz2-dev" "zlib1g-dev"
           )
       else
           declare -a debian_packages=( \
-            "git" "wget" "time" "ncat" \
+            "git" "wget" "curl" "time" "ncat" \
             "build-essential" "cmake" \
             "autoconf" "automake" "flex" "gawk" "m4" "libltdl-dev" "libtool-bin" \
             "libcap2-bin" \
@@ -2632,15 +2211,15 @@ prepare_packages()
           note_msg "/etc/apt/sources.list contains a CD-ROM reference!"
       fi
 
-      verbose_msg "sudo apt update ... may take a while ..."
-      output=$($HH_SUDOCMD apt update 2>&1)
+      verbose_msg "sudo apt-get update ... may take a while ..."
+      output=$($HH_SUDOCMD apt-get update 2>&1)
       found_apt_cdrom_error=$?
 
       echo "$output" | grep -iqe "Err:. cdrom:"
       found_apt_cdrom_error=$?
 
       if [ $found_apt_cdrom_error -eq 0 ]; then
-          error_msg "\'apt update\' returned a CD-ROM error!"
+          error_msg "\'apt-get update\' returned a CD-ROM error!"
           verbose_msg "
 It appears you have installed from a CD/DVD that is still required to
 supply information about packages.  Please see this URL for information
@@ -2666,7 +2245,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
               echo "is already installed"
           else
               echo "is missing, installing"
-              $HH_SUDOCMD apt -y install $package 2>&1
+              $HH_SUDOCMD apt-get -y install $package 2>&1
               echo "-----------------------------------------------------------------"
           fi
       done
@@ -2697,7 +2276,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
   if [ "$version_distro" == "elbrus"  ]; then
       declare -a elbrus_packages=( \
-          "git" "wget" "time" \
+          "git" "wget" "curl" "time" \
           "build-essential" "cmake" \
           "autoconf" "automake" "flex" "gawk" "m4" "libtool" \
           "libcap" \
@@ -2732,7 +2311,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
   if [ "$version_distro" == "arch"  ]; then
       declare -a arch_packages=( \
-          "git" "wget" "time" \
+          "git" "wget" "curl" "time" \
           "base-devel" "make" "autoconf" "automake" "cmake" "flex" "gawk" "m4" \
           "bzip2" "zlib"
       )
@@ -2782,7 +2361,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
           echo "Fedora version 34 or later found"
 
           declare -a fedora_packages=( \
-              "git" "wget" "time" \
+              "git" "wget" "curl" "time" \
               "gcc" "make" "flex" "gawk" "m4" \
               "autoconf" "automake" "libtool-ltdl-devel" "libtool" \
               "cmake"
@@ -2792,7 +2371,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
           for package in "${fedora_packages[@]}"; do
               echo "-----------------------------------------------------------------"
 
-              dnf list installed $package
+              dnf list --installed $package
               status=$?
 
               # install if missing
@@ -2811,7 +2390,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
   fi
 
 #-----------------------------------------------------------------------------
-  # CentOS, Alma, or Rocky Linux
+  # CentOS, Alma, Rocky, or Oracle Linux
 
 # To update/add packages on RedHat requires some fiddling around.
 #
@@ -2824,13 +2403,14 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
   if [[ $os_version_id == rhel* ||
         $os_version_id == almalinux* ||
-        $os_version_id == rocky* ]];
+        $os_version_id == rocky* ||
+        $os_version_id == oracle* ]];
       then
       if [[ $version_major -ge 8 ]]; then
-          echo "RedHat, Alma, or Rocky Linux version 8 or later found"
+          echo "RedHat, Alma, Rocky, or Oracle Linux version 8 or later found"
 
           declare -a almalinux_packages=( \
-              "git" "wget" "time" \
+              "git" "wget" "curl" "time" \
               "gcc" "make" "flex" "gawk" "m4" \
               "autoconf" "automake" "libtool-ltdl-devel" "libtool" \
               "cmake" \
@@ -2870,6 +2450,42 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
   fi
 
 #-----------------------------------------------------------------------------
+  # Amazon
+
+  if [[ $os_version_id == amzn* ]]; then
+      if [[ $version_major -ge 2023 ]]; then
+          echo "Amazon Linux version 2023 or later found"
+
+          declare -a amazon_packages=( \
+              "git" "wget" "curl" "time" \
+              "gcc" "make" "flex" "gawk" "m4" \
+              "autoconf" "automake" "libtool-ltdl-devel" "libtool" \
+              "cmake"
+              "bzip2-devel" "zlib-devel"
+              )
+
+          for package in "${amazon_packages[@]}"; do
+              echo "-----------------------------------------------------------------"
+
+              dnf list installed $package
+              status=$?
+
+              # install if missing
+              if [ $status -eq 0 ]; then
+                  echo "package $package is already installed"
+              else
+                  echo "installing package: $package"
+                  $HH_SUDOCMD dnf -y install $package
+              fi
+          done
+      else
+          error_msg "Amazon earlier than 2023 found, and not supported"
+          exit 1
+      fi
+    return
+  fi
+
+#-----------------------------------------------------------------------------
   # Mageia v8
 
   if [[ $os_version_id == mageia* ]]; then
@@ -2877,7 +2493,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
           echo "Mageia version 8 or later found"
 
           declare -a mageia_packages=( \
-              "git" "wget" \
+              "git" "wget" "curl" \
               "gcc" "make" "flex" "gawk" "m4" \
               "autoconf" "automake" "lib64ltdl-devel" "libtool" \
               "cmake"
@@ -2916,7 +2532,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
           if [[ $version_major -eq 7 ]]; then
               declare -a centos_packages=( \
-                  "git" "wget" \
+                  "git" "wget" "curl" \
                   "gcc" "make" "flex" "gawk" "m4" \
                   "autoconf" "automake" "libtool-ltdl-devel" \
                   "bzip2-devel" "zlib-devel"
@@ -2925,7 +2541,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
           if [[ $version_major -ge 8 ]]; then
               declare -a centos_packages=( \
-                  "git" "wget" "time" \
+                  "git" "wget" "curl" "time" \
                   "gcc" "make" "flex" "gawk" "m4" \
                   "autoconf" "automake" "libtool-ltdl-devel" \
                   "cmake" \
@@ -3079,7 +2695,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
   # Intel Clear Linux (supported from 35130 onward)
   if [[ $os_version_id == clear-linux-os* ]]; then
       declare -a clear_packages=( \
-          "git" "wget" \
+          "git" "wget" "curl" \
           "dev-utils" "perl-basic" \
           "c-basic" "flex" "os-core" \
           "devpkg-bzip2" \
@@ -3108,7 +2724,8 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
   if [[ $os_version_id == alpine* ]]; then
       declare -a alpine_packages=( \
-          "git" "wget" "bash" \
+          "git" "wget" "curl" "bash" \
+          "libcap" "libc6-compat" "musl-locales" "procps" \
           "build-base" "autoconf" "automake" "cmake" "flex" "gawk" "m4" \
           "bzip2" "libbz2" \
           "zlib" "zlib-dev"
@@ -3121,7 +2738,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
           echo "-----------------------------------------------------------------"
           echo "Checking for package: $package"
 
-          is_installed=$(apk list --installed | grep "$package")
+          is_installed=$(apk list --installed | grep -E "^$package*")
           status=$?
 
           # install if missing
@@ -3142,7 +2759,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
   if [[ $os_version_id == darwin* ]]; then
       declare -a darwin_packages=( \
-          "wget"    \
+          "wget" "curl"    \
           "autoconf" "automake" "libtool" \
           "cmake"   \
           "gsed"
@@ -3222,7 +2839,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 
   if [[ $os_version_id == netbsd* ]]; then
       declare -a netbsd_packages=( \
-          "git" "wget" \
+          "git" "wget" "curl" \
           "gmake" "autoconf" "automake" "cmake" "flex" "gawk" "m4" \
           "libtool" "bzip2" "zlib"
       )
@@ -3254,7 +2871,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
           echo "FreeBSD version 12 or later found"
 
           declare -a freebsd_packages=( \
-              "git" "wget" \
+              "git" "wget" "curl" \
               "autoconf" "automake" "cmake" "flex" "gawk" "m4" \
               "bzip2" \
               "gmake" "libltdl" "libtool"
@@ -3293,7 +2910,7 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
           echo "OpenBSD version 7 or later found"
 
           declare -a openbsd_packages=( \
-              "git" "wget" \
+              "git" "wget" "curl" \
               "autoconf-2.71" "automake-1.16.3" "cmake" "flex" "gawk" "m4" \
               "bzip2" \
               "gmake" "libltdl" "libtool"
@@ -3327,13 +2944,20 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
   fi
 
 #-----------------------------------------------------------------------------
+  # Android
+  
+  if [[ $os_version_id == android* ]]; then
+     verbose_msg "Not yet fully supported under Android"
+  fi
+  
+#-----------------------------------------------------------------------------
   # Slackware
 
   if [[ $os_version_id == slackware* ]]; then
           echo "Slackware (version ?? or later) found"
 
           declare -a slackware_packages=( \
-              "git" "wget" \
+              "git" "wget" "curl" \
               "autoconf" "automake" "cmake" "flex" "gawk" "m4" \
               "bzip2" \
               "make" "libtool"
@@ -3402,7 +3026,16 @@ https://my.velocihost.net/knowledgebase/29/Fix-the-apt-get-install-error-Media-c
 #-----------------------------------------------------------------------------
   if [ $os_is_supported != true ]; then
     error_msg "Your system ( $os_version_pretty ) is not (yet) supported!"
-    exit 1
+        if ($opt_prompts); then
+             if confirm "Continue anyway? [y/N]" ; then
+                    echo "OK"
+                else
+                    exit 1
+                fi
+            else
+                echo "Giving up"
+                exit 1
+            fi
   fi
 }
 
@@ -3416,6 +3049,7 @@ verbose_msg "  --prompts       : $opt_prompts"
 verbose_msg "  --beeps         : $opt_beeps"
 verbose_msg "  --sudo          : $opt_usesudo"
 verbose_msg "  --askpass       : $opt_askpass"
+verbose_msg "  --accept-root   : $opt_accept_root"
 
 if ( $opt_askpass ) ; then
     HH_SUDO_ASKPASS="-A"
@@ -3465,7 +3099,16 @@ detect_bitness
 
 if [ $os_is_supported != true ]; then
     error_msg "Your system ($os_version_pretty_name) is not (yet) supported!"
-    exit 1
+    if ($opt_prompts); then
+             if confirm "Continue anyway? [y/N]" ; then
+                 echo "OK"
+             else
+                 exit 1
+             fi
+         else
+             echo "Giving up"
+             exit 1
+         fi
 fi
 
 # Detect presence of sudo and complain if it's missing
@@ -3487,16 +3130,34 @@ if [ -z $which_sudo ]; then
 
             error_msg "Neither 'sudo' or 'doas' are installed."
             echo    # print a new line
-            read -p "Hit return to exit" -n 1 -r
-            echo    # print a new line
-            exit 1
+            # read -p "Hit return to exit" -n 1 -r
+
+            if ($opt_prompts); then
+                if confirm "Continue anyway? [y/N]" ; then
+                    echo "OK"
+                else
+                    exit 1
+                fi
+            else
+                echo "Giving up"
+                exit 1
+            fi
         fi
     else
         error_msg "'sudo' is not installed."
         echo    # print a new line
-        read -p "Hit return to exit" -n 1 -r
-        echo    # print a new line
-        exit 1
+        # read -p "Hit return to exit" -n 1 -r
+
+        if ($opt_prompts); then
+            if confirm "Continue anyway? [y/N]" ; then
+                echo "OK"
+            else
+                exit 1
+            fi
+        else
+            echo "Giving up"
+            exit 1
+        fi
     fi
 fi
 
@@ -3631,6 +3292,8 @@ verbose_msg "Configuration:"
 verbose_msg "FLAVOR               : $opt_flavor"
 verbose_msg "Config file          : $CONFIG_FILE"
 
+verbose_msg "CUSTOM_BUILD_MSG     : \"$opt_custom_build_msg\""
+
 hercules_barename=$(basename "$git_repo_hercules" ".${git_repo_hercules##*.}")
 verbose_msg "REPO_NAME            : $hercules_barename"
 
@@ -3640,6 +3303,26 @@ verbose_msg "OPT_INSTALL_DIR      : $opt_install_dir"
 verbose_msg "OPT_REGINA_DIR       : $opt_regina_dir"
 verbose_msg "OPT_REGINA_TARFILE   : $opt_regina_tarfile"
 verbose_msg "OPT_REGINA_URL       : $opt_regina_url"
+
+verbose_msg "***************"
+opt_branch=${opt_branch:-""}
+
+if [ -z "$opt_branch" ] ; then
+    verbose_msg "GIT_BRANCH_HERCULES : $opt_branch [default branch]"
+else
+    verbose_msg "GIT_BRANCH_HERCULES : $opt_branch [checkout $opt_branch]"
+    git_branch_hercules="$opt_branch"
+fi
+
+opt_commit=${opt_commit:-""}
+
+if [ -z "$opt_commit" ] ; then
+    verbose_msg "GIT_COMMIT_HERCULES : $opt_commit [default commit]"
+else
+    verbose_msg "GIT_COMMIT_HERCULES : $opt_commit [checkout $opt_commit]"
+    git_commit_hercules="$opt_commit"
+fi
+verbose_msg "***************"
 
 if [ -z "$git_branch_hercules" ] ; then
     verbose_msg "GIT_REPO_HERCULES    : $git_repo_hercules [default branch]"
@@ -3682,6 +3365,24 @@ verbose_msg "CFLAGS           : $CFLAGS"
 verbose_msg "CPPFLAGS         : $CPPFLAGS"
 verbose_msg "LDFLAGS          : $LDFLAGS"
 verbose_msg "LD_LIBRARY_PATH  : ${LD_LIBRARY_PATH:-""}"
+
+# If we're on macOS, DYLD_* environment variables are purged when
+# launching protected processes.  So we'll just set it up here to
+# the usual suspects.
+
+if [ "$version_distro" == "darwin" ]; then
+    if [ -z "${DYLD_LIBRARY_PATH:-""}" ] ; then
+        echo "macOS: Adding /usr/local/lib to DYLD_LIBRARY_PATH"
+        export DYLD_LIBRARY_PATH="/usr/local/lib"
+    fi
+
+    if [ ! -z "${LD_LIBRARY_PATH:-""}" ] ; then
+        echo "macOS: Adding LD_LIBRARY_PATH to DYLD_LIBRARY_PATH"
+        export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$LD_LIBRARY_PATH"
+    fi
+
+    verbose_msg "DYLD_LIBRARY_PATH: ${DYLD_LIBRARY_PATH:-""}"
+fi
 
 #-----------------------------------------------------------------------------
 
@@ -3838,8 +3539,8 @@ if [[ "$(uname -m)" =~ ^(i686) && "$version_distro" == "debian" ]]; then
 fi
 
 #-----------------------------------------------------------------------------
-verbose_msg "Looking for compiler files ... please wait ..."
-verbose_msg "Adding results to $extra_file"
+# verbose_msg "Looking for compiler files ... please wait ..."
+# verbose_msg "Adding results to $extra_file"
 
     # For NetBSD, gcc doesn't seem to know about /usr/local
     if [[ $os_version_id == netbsd* ]]; then
@@ -3847,36 +3548,36 @@ verbose_msg "Adding results to $extra_file"
         export LDFLAGS="$LDFLAGS -L/usr/lib -L/usr/local/lib"
     fi
 
-if [[ $os_version_wsl -eq 2 ]]; then
-    # echo "Windows WSL2 host system found"
-    # Don't run a search on /mnt because it takes forever
-    which_cc1=$(find / -path /mnt -prune -o -name cc1 -print 2>&1 | grep cc1 | head -5)
-    which_cc1plus=$(find / -path /mnt -prune -o -name cc1plus -print 2>&1 | grep cc1plus | head -5)
-elif [[ $os_version_id == netbsd* ]]; then
-    which_cc1=$(find / -xdev -name cc1 -print 2>&1 | grep cc1 | head -5)
-    which_cc1plus=$(find / -xdev -name cc1plus -print 2>&1 | grep cc1plus | head -5)
-elif [[ $os_version_id == darwin* ]]; then
-    # On macOS these two find commands can trigger:
-    # "Terminal wants to access your contacts"
-    # This looks scary, and we don't want to be suspected of being malware
-    # so we'll skip these checks.  They are mostly for debugging anyways.
-
-    which_cc1="skipped on macOS"
-    which_cc1plus="skipped on macOS"
-elif [[ $os_version_id == elbrus* ]]; then
-    verbose_msg "Limited file search on Elbrus Linux"
-    which_cc1="skipped on Elbrus Linux"
-    which_cc1plus="skipped on Elbrus Linux"
-else
-    which_cc1="$(find / -mount -name cc1 -print 2>&1 | grep cc1 | head -5)" || true
-    which_cc1plus="$(find / -mount -name cc1plus -print 2>&1 | grep cc1plus | head -5)" || true
-fi
-
-log_extra_info "cc1 presence     : $which_cc1"
-log_extra_info "cc1plus presence : $which_cc1plus"
-log_extra_info ""
-
-verbose_msg    # print a newline
+# if [[ $os_version_wsl -eq 2 ]]; then
+#     # echo "Windows WSL2 host system found"
+#     # Don't run a search on /mnt because it takes forever
+#     which_cc1=$(find / -path /mnt -prune -o -name cc1 -print 2>&1 | grep cc1 | head -5)
+#     which_cc1plus=$(find / -path /mnt -prune -o -name cc1plus -print 2>&1 | grep cc1plus | head -5)
+# elif [[ $os_version_id == netbsd* ]]; then
+#     which_cc1=$(find / -xdev -name cc1 -print 2>&1 | grep cc1 | head -5)
+#     which_cc1plus=$(find / -xdev -name cc1plus -print 2>&1 | grep cc1plus | head -5)
+# elif [[ $os_version_id == darwin* ]]; then
+#     # On macOS these two find commands can trigger:
+#     # "Terminal wants to access your contacts"
+#     # This looks scary, and we don't want to be suspected of being malware
+#     # so we'll skip these checks.  They are mostly for debugging anyways.
+# 
+#     which_cc1="skipped on macOS"
+#     which_cc1plus="skipped on macOS"
+# elif [[ $os_version_id == elbrus* ]]; then
+#     verbose_msg "Limited file search on Elbrus Linux"
+#     which_cc1="skipped on Elbrus Linux"
+#     which_cc1plus="skipped on Elbrus Linux"
+# else
+#     which_cc1="$(find / -mount -name cc1 -print 2>&1 | grep cc1 | head -5)" || true
+#     which_cc1plus="$(find / -mount -name cc1plus -print 2>&1 | grep cc1plus | head -5)" || true
+# fi
+# 
+# log_extra_info "cc1 presence     : $which_cc1"
+# log_extra_info "cc1plus presence : $which_cc1plus"
+# log_extra_info ""
+#
+# verbose_msg    # print a newline
 
 #-----------------------------------------------------------------------------
 
@@ -3995,192 +3696,212 @@ elif [[  $version_oorexx -ge 4 ]]; then
 else
     status_prompter "Step: Build Regina Rexx [used for test scripts]:"
 
-    # Remove any existing Regina, download and untar
-    add_build_entry # newline
-    add_build_entry "# Build Regina-REXX"
-    add_build_entry "rm -f \$opt_regina_tarfile"
-    add_build_entry "rm -rf \$opt_regina_dir"
-    rm -f "$opt_regina_tarfile"
-    rm -rf "$opt_regina_dir"
+    # Because of recent macOS Xcode-Tools and Clang not being too happy
+    # with the Regina 3.6 we had been building here, we check for macOS
+    # and call the external build helper instead of doing it all by hand
+    # here.
 
-    add_build_entry "wget \$opt_regina_url"
-    wget "$opt_regina_url"
-    if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        error_msg "wget $opt_regina_url failed!"
-        exit 1
-    fi
+    if [[ $os_version_id == darwin* ]]; then
+        helper_file="$fns_dir/helper-build-regina.sh"
 
-    add_build_entry "tar xfz \$opt_regina_tarfile"
-    tar xfz "$opt_regina_tarfile"
-    if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        error_msg "tar failed!"
-        exit 1
-    fi
-
-    add_build_entry "cd \$opt_regina_dir"
-    cd "$opt_regina_dir"
-
-    if [[ "$(uname -m)" =~ ^i686 ]]; then
-        regina_configure_cmd="./configure --enable-32bit"
-    elif [[ "$(uname -m)" =~ (^arm64|^aarch64) ]]; then
-        # If it's an arm64 CPU, and not FreeBSD, enable 64-bit
-        # This should work on Raspberry Pi with both FreeBSD and the Pi OSes
-        if [[ $os_version_id == freebsd* ]]; then
-            regina_configure_cmd="./configure"
+        if test -f "$helper_file" ; then
+            source "$helper_file"
         else
-            regina_configure_cmd="./configure --enable-64bit"
+            echo "Regina buidl helper script file ( $helper_file ) not found!"
+            exit 1
         fi
     else
-        # regina_configure_cmd="./configure --prefix=$opt_build_dir/rexx"
-        regina_configure_cmd="./configure"
-    fi
+        # Remove any existing Regina, download and untar
+        add_build_entry # newline
+        add_build_entry "# Build Regina-REXX"
+        add_build_entry "rm -f \$opt_regina_tarfile"
+        add_build_entry "rm -rf \$opt_regina_dir"
+        rm -f "$opt_regina_tarfile"
+        rm -rf "$opt_regina_dir"
 
-    if [[ "$version_distro" == "debian" ||
-          "$version_distro" == "openSUSE" ||
-          "$version_distro" == "fedora" ]];
-    then
-        regina_configure_cmd="$regina_configure_cmd --libdir=/usr/lib"
-    fi
+        add_build_entry "curl -LJO \$opt_regina_url"
+        curl -LJO "$opt_regina_url"
+        if [ ${PIPESTATUS[0]} -ne 0 ]; then
+            error_msg "curl -LJO $opt_regina_url failed!"
+            exit 1
+        fi
 
-    if [[ "$version_distro" == "almalinux"  ||
-          "$version_distro" == "rockylinux" ||
-          "$version_distro" == "redhat"     ]]; then
-        regina_configure_cmd="$regina_configure_cmd --libdir=/usr/lib64"
-    fi
+        add_build_entry "tar xfz \$opt_regina_tarfile"
+        tar xfz "$opt_regina_tarfile"
+        if [ ${PIPESTATUS[0]} -ne 0 ]; then
+            error_msg "tar failed!"
+            exit 1
+        fi
 
-    # For FreeBSD and OpenBSD, Clang doesn't seem to know about /usr/local
-    if [[ $os_version_id == freebsd* || $os_version_id == openbsd* ]]; then
-        export CFLAGS="$CFLAGS -I/usr/local/include"
-        export LDFLAGS="$LDFLAGS -L/usr/lib -L/usr/local/lib"
-    fi
+        add_build_entry "cd \$opt_regina_dir"
+        cd "$opt_regina_dir"
 
-    # For NetBSD, gcc doesn't seem to know about /usr/local
-    if [[ $os_version_id == netbsd* ]]; then
-        export CFLAGS="$CFLAGS -I/usr/local/include"
-        export LDFLAGS="$LDFLAGS -L/usr/lib -L/usr/local/lib"
-    fi
+        if [[ "$(uname -m)" =~ ^i686 ]]; then
+            regina_configure_cmd="./configure --enable-32bit"
+        elif [[ "$(uname -m)" =~ (^arm64|^aarch64) ]]; then
+            # If it's an arm64 CPU, and not FreeBSD, enable 64-bit
+            # This should work on Raspberry Pi with both FreeBSD and the Pi OSes
+            if [[ $os_version_id == freebsd* && $os_bitflag == "32" ]]; then
+                regina_configure_cmd="./configure"
+            else
+                regina_configure_cmd="./configure --enable-64bit"
+            fi
+        else
+            # regina_configure_cmd="./configure --prefix=$opt_build_dir/rexx"
+            regina_configure_cmd="./configure"
+        fi
 
-    if (cc --version | grep -Fiqe "clang"); then
-#   if [[ $os_version_id == darwin* &&
-#         "$(uname -m)" =~ (^arm64|^aarch64) ]];
-#   then
-#       regina_configure_cmd="CFLAGS=\"-Wno-error=implicit-function-declaration\" ./configure"
-        regina_configure_cmd="CFLAGS=\"$CFLAGS -Wno-error=implicit-function-declaration\" ./configure"
-    fi
+        if [[ "$version_distro" == "debian" ||
+              "$version_distro" == "openSUSE" ||
+              "$version_distro" == "fedora" ]];
+        then
+            regina_configure_cmd="$regina_configure_cmd --libdir=/usr/lib"
+        fi
 
-    # FIXME on macOS on Apple M1 build Regina with a separate helper
-    # before running this script!
+        if [[ "$version_distro" == "almalinux"  ||
+              "$version_distro" == "rockylinux" ||
+              "$version_distro" == "redhat"     ]]; then
+            regina_configure_cmd="$regina_configure_cmd --libdir=/usr/lib64"
+        fi
 
-    # If this is a RPIOS 64-bit, aarch64 Chromebook, RISC-V, or ppc64le:
-    #   for Regina 3.9.3:
-    #     we need to patch configure
+        # For FreeBSD and OpenBSD, Clang doesn't seem to know about /usr/local
+        if [[ $os_version_id == freebsd* || $os_version_id == openbsd* ]]; then
+            export CFLAGS="$CFLAGS -I/usr/local/include"
+            export LDFLAGS="$LDFLAGS -L/usr/lib -L/usr/local/lib"
+        fi
+
+        # For NetBSD, gcc doesn't seem to know about /usr/local
+        if [[ $os_version_id == netbsd* ]]; then
+            export CFLAGS="$CFLAGS -I/usr/local/include"
+            export LDFLAGS="$LDFLAGS -L/usr/lib -L/usr/local/lib"
+        fi
+
+        if (cc --version | grep -Fiqe "clang"); then
+    #   if [[ $os_version_id == darwin* &&
+    #         "$(uname -m)" =~ (^arm64|^aarch64) ]];
+    #   then
+    #       regina_configure_cmd="CFLAGS=\"-Wno-error=implicit-function-declaration\" ./configure"
+            # regina_configure_cmd="CFLAGS=\"$CFLAGS -Wno-error=implicit-function-declaration\" ./configure"
+            # Added -Wno-incompatible-function-pointers for FreeBSD 14 and Clang 16
+            regina_configure_cmd="CFLAGS=\"$CFLAGS -Wno-error=implicit-function-declaration -Wno-incompatible-function-pointer-types\" $regina_configure_cmd"
+        fi
+
+        # If this is a RPIOS 64-bit, aarch64 Chromebook, RISC-V, or ppc64le:
+        #   for Regina 3.9.3:
+        #     we need to patch configure
+        #
+        #   for Regina 3.6:
+        #     we need to patch configure
+        #     and supply a more modern config.{guess,sub}
+
+        # For Chromebook:
+        # uname -a
+        # Linux penguin 5.10 ...
+
+        if [[ "$(uname -m)" =~ (^arm64|^aarch64) ]]; then
+          if [[ ( ! -z "$RPI_MODEL" && "$RPI_MODEL" =~ "Raspberry" ) ||
+                ( $opt_force_pi == true ) ||
+                ( "$os_version_pretty_name" == Orange* ) ||
+                ( "$(uname -a)" =~ "FreeBSD" ) ||
+                ( "$(uname -r)" =~ "linuxkit" ) ||
+                ( "$(uname -r)" =~ "rockchip64" ) ||
+                ( "$(uname -r)" =~ "amzn" ) ||
+                ( "$(uname -r)" =~ "danctnix" ) ||
+                ( "$(uname -a)" =~ "Linux g6sbc01" ) ||
+                ( "$(uname -a)" =~ "Linux penguin" ) ]]; then
+
+            if [[ "$opt_regina_dir" =~ "3.9.3" ]]; then
+              verbose_msg "Patching Regina 3.9.3 source for aarch64"
+              patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.9.3.patch"
+              verbose_msg    # output a newline
+            elif [[ "$opt_regina_dir" =~ "3.6" ]]; then
+              verbose_msg "Patching Regina 3.6 source for aarch64"
+              patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.6.patch"
+              verbose_msg "Replacing config.{guess,sub}"
+              cp "$SCRIPT_DIR/patches/config.guess" ./common/
+              cp "$SCRIPT_DIR/patches/config.sub" ./common/
+              verbose_msg    # output a newline
+            else
+              error_msg "Don't know how to build your Regina on your aarch64!"
+              exit 1
+            fi
+          fi
+        fi
+
+        if [[ "$(uname -m)" =~ (^riscv64|^ppc64) ]]; then
+            if [[ "$opt_regina_dir" =~ "3.9.3" ]]; then
+              verbose_msg "Patching Regina 3.9.3"
+              patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.9.3.patch"
+              verbose_msg    # output a newline
+            elif [[ "$opt_regina_dir" =~ "3.6" ]]; then
+              verbose_msg "Patching Regina 3.6 source"
+              patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.6.patch"
+              verbose_msg "Replacing config.{guess,sub}"
+              cp "$SCRIPT_DIR/patches/config.guess" ./common/
+              cp "$SCRIPT_DIR/patches/config.sub" ./common/
+              verbose_msg    # output a newline
+            else
+              error_msg "Don't know how to build your Regina!"
+              exit 1
+            fi
+        fi
+
+        verbose_msg $regina_configure_cmd
+        verbose_msg    # output a newline
+        add_build_entry # newline
+        add_build_entry "$regina_configure_cmd"
+        eval "$regina_configure_cmd"
+
+        if [ ${PIPESTATUS[0]} -ne 0 ]; then
+            error_msg "configure failed!"
+            exit 1
+        fi
+
+        add_build_entry "time make"
+        time make
+
+        note_msg "sudo required to install Regina REXX in the default system directories"
+        verbose_msg    # output a newline
+        add_build_entry "\$HH_SUDOCMD time make install"
+        $HH_SUDOCMD time make install
+
+        # Check to see if the above 'sudo' or the 'make install' failed
+        if [[ $? != 0 ]] ; then
+            error_msg "Regina installation failed!"
+            exit 1
+        fi
+
+        if [[ "$version_distro" == "debian" ||
+              "$version_distro" == "openSUSE" ||
+              "$version_distro" == "almalinux" ||
+              "$version_distro" == "rockylinux" ||
+              "$version_distro" == "fedora" ]];
+        then
+            verbose_msg "sudo ldconfig (for libregina.so)"
+            add_build_entry "# ldconfig (for libregina.so)"
+            add_build_entry "\$HH_SUDOCMD ldconfig"
+            $HH_SUDOCMD ldconfig
+        fi
+
+        if [[ "$version_distro" == "slackware" ]];
+        then
+            verbose_msg "sudo /sbin/ldconfig (for libregina.so)"
+            add_build_entry "# ldconfig (for libregina.so)"
+            add_build_entry "\$HH_SUDOCMD /sbin/ldconfig"
+            $HH_SUDOCMD /sbin/ldconfig
+        fi
+
+    #   export PATH=$opt_build_dir/rexx/bin:$PATH
     #
-    #   for Regina 3.6:
-    #     we need to patch configure
-    #     and supply a more modern config.{guess,sub}
+    #   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$opt_build_dir/rexx/lib
+    #   newpath="$opt_install_dir/rexx/lib"
+    #   if [ -d "\$newpath" ] && [[ ":\$LD_LIBRARY_PATH:" != *":\$newpath:"* ]]; then
+    #       export LD_LIBRARY_PATH="\$newpath\${LD_LIBRARY_PATH:+":\$LD_LIBRARY_PATH"}"
+    #   fi
+    #
+    #   export CPPFLAGS=-I$opt_build_dir/rexx/include
 
-    # For Chromebook:
-    # uname -a
-    # Linux penguin 5.10 ...
-
-    if [[ "$(uname -m)" =~ (^arm64|^aarch64) ]]; then
-      if [[ ( ! -z "$RPI_MODEL" && "$RPI_MODEL" =~ "Raspberry" ) ||
-            ( $opt_force_pi == true ) ||
-            ( "$(uname -r)" =~ "linuxkit" ) ||
-            ( "$(uname -r)" =~ "rockchip64" ) ||
-            ( "$(uname -a)" =~ "Linux g6sbc01" ) ||
-            ( "$(uname -a)" =~ "Linux penguin" ) ]]; then
-
-        if [[ "$opt_regina_dir" =~ "3.9.3" ]]; then
-          verbose_msg "Patching Regina 3.9.3 source for aarch64"
-          patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.9.3.patch"
-          verbose_msg    # output a newline
-        elif [[ "$opt_regina_dir" =~ "3.6" ]]; then
-          verbose_msg "Patching Regina 3.6 source for aarch64"
-          patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.6.patch"
-          verbose_msg "Replacing config.{guess,sub}"
-          cp "$SCRIPT_DIR/patches/config.guess" ./common/
-          cp "$SCRIPT_DIR/patches/config.sub" ./common/
-          verbose_msg    # output a newline
-        else
-          error_msg "Don't know how to build your Regina on your aarch64!"
-          exit 1
-        fi
-      fi
     fi
-
-    if [[ "$(uname -m)" =~ (^riscv64|^ppc64) ]]; then
-        if [[ "$opt_regina_dir" =~ "3.9.3" ]]; then
-          verbose_msg "Patching Regina 3.9.3"
-          patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.9.3.patch"
-          verbose_msg    # output a newline
-        elif [[ "$opt_regina_dir" =~ "3.6" ]]; then
-          verbose_msg "Patching Regina 3.6 source"
-          patch -u configure -i "$SCRIPT_DIR/patches/regina-rexx-3.6.patch"
-          verbose_msg "Replacing config.{guess,sub}"
-          cp "$SCRIPT_DIR/patches/config.guess" ./common/
-          cp "$SCRIPT_DIR/patches/config.sub" ./common/
-          verbose_msg    # output a newline
-        else
-          error_msg "Don't know how to build your Regina!"
-          exit 1
-        fi
-    fi
-
-    verbose_msg $regina_configure_cmd
-    verbose_msg    # output a newline
-    add_build_entry # newline
-    add_build_entry "$regina_configure_cmd"
-    eval "$regina_configure_cmd"
-
-    if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        error_msg "configure failed!"
-        exit 1
-    fi
-
-    add_build_entry "time make"
-    time make
-
-    note_msg "sudo required to install Regina REXX in the default system directories"
-    verbose_msg    # output a newline
-    add_build_entry "\$HH_SUDOCMD time make install"
-    $HH_SUDOCMD time make install
-
-    # Check to see if the above 'sudo' or the 'make install' failed
-    if [[ $? != 0 ]] ; then
-        error_msg "Regina installation failed!"
-        exit 1
-    fi
-
-    if [[ "$version_distro" == "debian" ||
-          "$version_distro" == "openSUSE" ||
-          "$version_distro" == "almalinux" ||
-          "$version_distro" == "rockylinux" ||
-          "$version_distro" == "fedora" ]];
-    then
-        verbose_msg "sudo ldconfig (for libregina.so)"
-        add_build_entry "# ldconfig (for libregina.so)"
-        add_build_entry "\$HH_SUDOCMD ldconfig"
-        $HH_SUDOCMD ldconfig
-    fi
-
-    if [[ "$version_distro" == "slackware" ]];
-    then
-        verbose_msg "sudo /sbin/ldconfig (for libregina.so)"
-        add_build_entry "# ldconfig (for libregina.so)"
-        add_build_entry "\$HH_SUDOCMD /sbin/ldconfig"
-        $HH_SUDOCMD /sbin/ldconfig
-    fi
-
-#   export PATH=$opt_build_dir/rexx/bin:$PATH
-#
-#   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$opt_build_dir/rexx/lib
-#   newpath="$opt_install_dir/rexx/lib"
-#   if [ -d "\$newpath" ] && [[ ":\$LD_LIBRARY_PATH:" != *":\$newpath:"* ]]; then
-#       export LD_LIBRARY_PATH="\$newpath\${LD_LIBRARY_PATH:+":\$LD_LIBRARY_PATH"}"
-#   fi
-#
-#   export CPPFLAGS=-I$opt_build_dir/rexx/include
 
     verbose_msg    # output a newline
     verbose_msg "which rexx: $(which rexx)"
@@ -4774,7 +4495,7 @@ $frecord_gcc_switches_option ../configure \
     $config_opt_optimization \
     --enable-extpkgs=$opt_build_dir/extpkgs \
     --prefix=$opt_install_dir \
-    --enable-custom="Built using Hercules-Helper (version: $hercules_helper_version)" \
+    --enable-custom="$opt_custom_build_msg (version: $hercules_helper_version)" \
     $enable_regina_option \
     $enable_oorexx_option \
     $enable_ipv6_option \
@@ -4833,19 +4554,31 @@ cd build
 # Use 1.5 times as many processes as CPUs unless there's low memory
 # But limit to 4 maximum
 
-if [[ $os_version_multicore_with_low_memory == true ]]; then
+if [[ $os_version_multicore_with_low_memory == true ||
+      $os_version_memory_size -lt 2000 ]]; then
+    verbose_msg "Parallel compiles (-j) limited to 1 due to low memory"
     nprocs="1"
+    nprocs_real=$nprocs
 elif [[ $os_version_id == freebsd* || $os_version_id == netbsd* || $os_version_id == openbsd* ||
         $os_version_id == darwin* ]];
 then
     nprocs="$(sysctl -n hw.ncpu 2>/dev/null || echo 1)"
+    nprocs_real=$nprocs
     nprocs=$(( $nprocs * 3 / 2))
 else
     nprocs="$(nproc 2>/dev/null || echo 1)"
+    nprocs_real=$nprocs
     nprocs=$(( $nprocs * 3 / 2))
 fi
 
 nprocs=$(($nprocs>4 ? 4: $nprocs))
+
+# For macOS we set the deployment target to match the running OS
+if [[ $os_version_id == darwin* ]]; then
+    macOS_deployment="MACOSX_DEPLOYMENT_TARGET=$version_major.$version_minor"
+else
+    macOS_deployment=" "
+fi
 
 # For FreeBSD, OpenBSD, and NetBSD, the BSD make acts up, so we'll use gmake.
 
@@ -4854,8 +4587,8 @@ if [[ $os_version_id == freebsd* || $os_version_id == openbsd* ||
     make_clean_cmd="gmake clean"
     make_cmd="time gmake -j $nprocs 2>&1"
 else
-    make_clean_cmd="make clean"
-    make_cmd="time make -j $nprocs 2>&1"
+    make_clean_cmd="$macOS_deployment make clean"
+    make_cmd="time $macOS_deployment make -j $nprocs 2>&1"
 fi
 
 # make clean
@@ -4899,9 +4632,12 @@ verbose_msg "-----------------------------------------------------------------
 if (! $dostep_tests); then
     verbose_msg "Skipping step: make check (--no-tests)"
 else
-    status_prompter "Step: tests:"
+    verbose_msg "Step: tests:"
+    verbose_msg    # output a newline
     verbose_msg "Be patient, this can take a while with no output."
     verbose_msg    # output a newline
+    verbose_msg "If you check top/htop and nothing seems to be happening, "
+    verbose_msg "try hitting Return or CTRL+D."
 
     if [[ $os_version_id == freebsd* || $os_version_id == openbsd* ]]; then
         make_check_cmd="gmake check"
@@ -4913,7 +4649,8 @@ else
     # conditions such as on a Raspberry Pi 3B, and skip the 'mainsize' test.
 
     verbose_msg "********************"
-    verbose_msg "Memory size = $os_version_memory_size"
+    verbose_msg "Memory size    = $os_version_memory_size"
+    verbose_msg "Number of CPUS = $nprocs_real"
     verbose_msg "********************"
     verbose_msg    # output a newline
 
@@ -4925,6 +4662,23 @@ else
         if [ -f ../tests/mainsize.tst ]; then
             mv ../tests/mainsize.tst ../tests/mainsize.tst.skipped
         fi
+    fi
+
+    status_prompter "Step: tests:"
+
+    # Patch runtest4.tst to add 'MAXRATES'
+    runtest4="../tests/runtest4.tst"
+
+    if (grep -Fiqe "maxrates" $runtest4); then
+        verbose_msg "Found \"MAXRATES\" already present in $runtest4"
+    else
+        verbose_msg "\"MAXRATES\" not present in $runtest4.  Adding..."
+                cat <<-HH_MAXRATES >> $runtest4
+
+# Added by Hercules-Helper
+maxrates
+
+HH_MAXRATES
     fi
 
     add_build_entry "time $make_check_cmd"
@@ -4947,6 +4701,25 @@ else
     # HHC02204I ARCHLVL        set to S/370
     # HHC02204I LPARNUM        set to BASIC
     # HHC01603I *Info 1 HHC17006W MAINSIZE decreased to 2G architectural maximim
+
+    verbose_msg    # output a newline
+    mips_rate=0
+
+    if (grep -Fiqe "MIPS:" ./allTests.out); then
+        verbose_msg "Found MAXRATES MIPS: in test output"
+
+        mips_rate=$(grep 'MIPS:' ./allTests.out | sort --reverse -k 4 -n | head -1 | awk '{ print $NF }')
+        verbose_msg "MAXRATES MIPS: $mips_rate"
+
+        if (( $(echo $mips_rate 10 | awk '{ if ($1 > $2) print 1;}') )); then
+            echo "MIPS > 10.  Allowing more exhaustive tests.";
+        else
+            echo "MIPS < 10.  Skipping further tests.";
+        fi
+    else
+        verbose_msg "MAXRATES MIPS: missing in test output. Skipping further tests."
+        mips_rate=0
+    fi
 
     # Quickie test to see if hercules works at all
     # sudo ./hercules
@@ -5096,7 +4869,12 @@ else
 # LD_LIBRARY_PATH is often empty, and we don't want to error out on that
 set +u
 
-echo "Setting environment variables for Hercules"
+# We shouldn't be producing any output in non-interactive shells.
+# This can cause scp, etc. to fail.
+
+if [ ! -z "\${PS1}" ]; then
+    echo "Setting environment variables for Hercules"
+fi
 
 newpath="$opt_install_dir/bin"
 if [ -d "\$newpath" ] && [[ ":\$PATH:" != *":\$newpath:"* ]]; then
@@ -5176,14 +4954,14 @@ if ($dostep_bashrc); then
             if grep -Eqe "^\. $opt_install_dir/$hercules_barename-init-$shell.sh" ~/$profile_name ; then
                 note_msg "The same Hercules profile commands are already present in your ~/$profile_name. Skipping"
             else
-		if grep -Fqe "$hercules_barename-init-$shell.sh" ~/$profile_name ; then
-		    # FIXME create beep() function
-		    echo -ne '\a'; sleep 0.2; echo -ne '\a'
-		    note_msg " "
-		    note_msg "Different Hercules profile commands are already present in your ~/$profile_name"
-		    note_msg "Please examine your ~/$profile_name carefully"
-		    note_msg " "
-		    echo   # output a newline
+                if grep -Fqe "$hercules_barename-init-$shell.sh" ~/$profile_name ; then
+                    # FIXME create beep() function
+                    echo -ne '\a'; sleep 0.2; echo -ne '\a'
+                    note_msg " "
+                    note_msg "Different Hercules profile commands are already present in your ~/$profile_name"
+                    note_msg "Please examine your ~/$profile_name carefully"
+                    note_msg " "
+                    echo   # output a newline
                 fi
 
                 verbose_msg "Adding Hercules profile commands to your ~/$profile_name"
@@ -5207,11 +4985,13 @@ if (! $opt_no_install && ! $opt_no_bashrc); then
     if [[ $shell == "bash" && -f ~/.bashrc || 
           $shell == "zsh"  && -f ~/.zshrc     ]]; then # Check for profile existing first!
       if [ -f $opt_install_dir/$hercules_barename-init-$shell.sh ]; then
-        echo   # output a newline
-        echo "To make this new Hercules immediately available, run:"
-        echo "(note the '.', which will \"source\" the script)"
-        echo   # output a newline
-        echo "  . $opt_install_dir/$hercules_barename-init-$shell.sh"
+        note_msg   # output a newline
+        note_msg "To make this new Hercules immediately available,"
+        note_msg "without restarting your terminal session, run:"
+        note_msg   # output a newline
+        note_msg "(note the '.', which will \"source\" the script)"
+        note_msg   # output a newline
+        note_msg "  . $opt_install_dir/$hercules_barename-init-$shell.sh"
       fi
     fi
 fi
@@ -5219,6 +4999,15 @@ fi
 verbose_msg "Done!"
 
 add_build_entry "cd \$opwd"
+
+# Quickie test
+verbose_msg " "  # output a newline
+
+    hash -r
+    pushd $opt_build_dir/$hercules_barename/build
+    ./hercules --version
+    popd
+    verbose_msg " "  # output a newline
 
 } # End of I/O redirection function
 #-----------------------------------------------------------------------------
